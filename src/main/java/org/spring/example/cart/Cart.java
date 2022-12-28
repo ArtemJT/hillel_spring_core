@@ -1,6 +1,8 @@
-package org.spring.example;
+package org.spring.example.cart;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.spring.example.product.Product;
 import org.spring.example.product.ProductComparator;
 import org.spring.example.product.ProductRepository;
@@ -10,16 +12,19 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
+@RequiredArgsConstructor
+@ToString
 public class Cart {
-
     @Getter
     private final List<Product> productList = new ArrayList<>();
+    @ToString.Exclude
     private final ProductRepository productRepository;
 
-    public Cart(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
+    /**
+     * Добавляет товар в корзину по коду ID
+     *
+     * @param id код ID товара
+     */
     public void addToCart(Integer id) {
         try {
             Product product = productRepository.getProduct(id);
@@ -30,6 +35,11 @@ public class Cart {
         }
     }
 
+    /**
+     * Удаляет товар из корзины по коду ID
+     *
+     * @param id код ID товара
+     */
     public void removeFromCart(Integer id) {
         try {
             Product product = productList.stream()
@@ -42,24 +52,24 @@ public class Cart {
         }
     }
 
+    /**
+     * Проверяет пуста ли корзина
+     *
+     * @return если корзина пуста - возвращает true
+     */
     public boolean isEmpty() {
         return productList.isEmpty();
     }
 
+    /**
+     * Формирует строку из доступных ID товаров в корзине
+     *
+     * @return возвращает список доступных ID в корзине
+     */
     public String getAvailableIdInCart() {
-        if (productList.isEmpty()) {
-            return "CART IS EMPTY. ADD SOME PRODUCT FIRST";
-        }
         productList.sort(new ProductComparator());
         StringJoiner sj = new StringJoiner(", ", "RANGE OF IDs IN CURRENT CART {", "}");
         productList.forEach(product -> sj.add(String.valueOf(product.getId())));
         return sj.toString();
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "productList=" + productList +
-                '}';
     }
 }

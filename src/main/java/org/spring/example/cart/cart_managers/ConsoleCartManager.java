@@ -1,7 +1,8 @@
-package org.spring.example;
+package org.spring.example.cart.cart_managers;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import org.spring.example.cart.Cart;
 import org.spring.example.product.ProductRepository;
 
 import java.io.BufferedReader;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Locale;
 
-import static org.spring.example.Constants.*;
+import static org.spring.example.constants.Constants.*;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConsoleCartManager {
@@ -17,7 +18,15 @@ public class ConsoleCartManager {
     private Cart cart;
     private ProductRepository productRepository;
 
-    public void cartRun() {
+    /**
+     * Запускает консольный менеджер корзины.
+     * Основные команды:
+     * add - добавление товара в корзину;
+     * del - удаление товара из корзины;
+     * cart - список товаров в корзине;
+     * exit - закрыть менеджер.
+     */
+    public void run() {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println(START_MSG);
             String line;
@@ -35,7 +44,8 @@ public class ConsoleCartManager {
                         printAvailableIdInCart();
                         break;
                     }
-                    default: break;
+                    default:
+                        break;
                 }
                 System.out.println(START_MSG);
             }
@@ -48,7 +58,7 @@ public class ConsoleCartManager {
         if (cart.isEmpty()) {
             System.out.println(CART_IS_EMPTY);
         } else {
-            System.out.println(cart.getAvailableIdInCart());
+            System.out.println(cart);
         }
     }
 
@@ -81,10 +91,10 @@ public class ConsoleCartManager {
                     id = Integer.parseInt(line2);
                     break;
                 } else {
-                    System.out.println("ERROR ENTER, PLEASE TRY AGAIN");
+                    System.out.println("WRONG NUMBER, PLEASE TRY AGAIN");
                 }
             }
-            } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return id;

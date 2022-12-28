@@ -1,4 +1,4 @@
-package org.spring.example;
+package org.spring.example.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,8 @@ public class Constants {
     public static final String EXIT = "exit";
     public static final String START_MSG =
             String.format("PLEASE ENTER COMMANDS \"%s\" OR \"%s\" OR \"%s\" OR \"%s\" TO EXIT",
-            ADD, DEL, CART, EXIT);
-    public static final String ENTER_ID ="PLEASE ENTER ID. ";
+                    ADD, DEL, CART, EXIT);
+    public static final String ENTER_ID = "PLEASE ENTER ID. ";
     public static final String CART_IS_EMPTY = "CART IS EMPTY. ADD SOME PRODUCT FIRST";
 
 }

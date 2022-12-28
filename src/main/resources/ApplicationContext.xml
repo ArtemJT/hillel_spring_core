@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    <bean id="product1" class="org.spring.example.product.Product">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="name" value="Product-1"/>
+        <constructor-arg name="price" value="11.11"/>
+    </bean>
+    <bean id="product3" class="org.spring.example.product.Product">
+        <constructor-arg name="id" value="3"/>
+        <constructor-arg name="name" value="Product-3"/>
+        <constructor-arg name="price" value="33.33"/>
+    </bean>
+    <bean id="product2" class="org.spring.example.product.Product">
+        <constructor-arg name="id" value="2"/>
+        <constructor-arg name="name" value="Product-2"/>
+        <constructor-arg name="price" value="22.22"/>
+    </bean>
+    <bean id="product5" class="org.spring.example.product.Product">
+        <constructor-arg name="id" value="5"/>
+        <constructor-arg name="name" value="Product-5"/>
+        <constructor-arg name="price" value="55.55"/>
+    </bean>
+    <bean id="product4" class="org.spring.example.product.Product">
+        <constructor-arg name="id" value="4"/>
+        <constructor-arg name="name" value="Product-4"/>
+        <constructor-arg name="price" value="44.44"/>
+    </bean>
+    <bean id="product7" class="org.spring.example.product.Product">
+        <constructor-arg name="id" value="7"/>
+        <constructor-arg name="name" value="Product-7"/>
+        <constructor-arg name="price" value="77.77"/>
+    </bean>
+    <bean id="product8" class="org.spring.example.product.Product">
+        <constructor-arg name="id" value="8"/>
+        <constructor-arg name="name" value="Product-8"/>
+        <constructor-arg name="price" value="88.88"/>
+    </bean>
+    <bean id="product6" class="org.spring.example.product.Product">
+        <constructor-arg name="id" value="6"/>
+        <constructor-arg name="name" value="Product-6"/>
+        <constructor-arg name="price" value="66.66"/>
+    </bean>
+
+    <bean id="productRepository" class="org.spring.example.product.ProductRepository" autowire="constructor"/>
+    <bean id="cart" class="org.spring.example.cart.Cart" scope="prototype" autowire="constructor"/>
+    <bean id="consoleCartManager" class="org.spring.example.cart.cart_managers.ConsoleCartManager" autowire="constructor"/>
+</beans>
