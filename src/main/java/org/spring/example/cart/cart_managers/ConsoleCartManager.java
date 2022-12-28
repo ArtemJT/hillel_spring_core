@@ -1,0 +1,92 @@
+package org.spring.example;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import org.spring.example.product.ProductRepository;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Locale;
+
+import static org.spring.example.Constants.*;
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class ConsoleCartManager {
+
+    private Cart cart;
+    private ProductRepository productRepository;
+
+    public void cartRun() {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            System.out.println(START_MSG);
+            String line;
+            while (!(line = reader.readLine()).equals(EXIT)) {
+                switch (line.toLowerCase(Locale.ROOT)) {
+                    case ADD: {
+                        addToCart(reader);
+                        break;
+                    }
+                    case DEL: {
+                        removeFromCart(reader);
+                        break;
+                    }
+                    case CART: {
+                        printAvailableIdInCart();
+                        break;
+                    }
+                    default: break;
+                }
+                System.out.println(START_MSG);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void printAvailableIdInCart() {
+        if (cart.isEmpty()) {
+            System.out.println(CART_IS_EMPTY);
+        } else {
+            System.out.println(cart.getAvailableIdInCart());
+        }
+    }
+
+    private void addToCart(BufferedReader reader) {
+        String mess = ENTER_ID + productRepository.getRangeOfId();
+        System.out.println(mess);
+
+        Integer id = parseStringToInt(reader);
+        cart.addToCart(id);
+    }
+
+    private void removeFromCart(BufferedReader reader) {
+        if (cart.isEmpty()) {
+            System.out.println(CART_IS_EMPTY);
+        } else {
+            String mess = ENTER_ID + cart.getAvailableIdInCart();
+            System.out.println(mess);
+
+            Integer id = parseStringToInt(reader);
+            cart.removeFromCart(id);
+        }
+    }
+
+    private Integer parseStringToInt(BufferedReader reader) {
+        Integer id = null;
+        try {
+            String line2;
+            while ((line2 = reader.readLine()) != null) {
+                if (line2.matches("\\d")) {
+                    id = Integer.parseInt(line2);
+                    break;
+                } else {
+                    System.out.println("ERROR ENTER, PLEASE TRY AGAIN");
+                }
+            }
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+}
