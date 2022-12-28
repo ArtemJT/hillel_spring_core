@@ -4,7 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Constants {
+public final class Constants {
+
     public static final String ADD = "add";
     public static final String DEL = "del";
     public static final String CART = "cart";
